@@ -15,3 +15,4 @@ class RegisterSerializer(serializers.ModelSerializer):
             password = validated_data['password'],
             role = validated_data['role']
         )
+        return user
