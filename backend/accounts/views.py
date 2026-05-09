@@ -6,4 +6,4 @@ from accounts.serializers import RegisterSerializer
 # Create your views here.
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [AllowAny] 
