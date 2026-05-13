@@ -7,3 +7,7 @@ class IsAdmin(BasePermission):
 class IsManager(BasePermission):
     def has_permission(self, request, view):
         return request.user.role == 'manager'
+    
+class IsManagerOrAdmin(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.role in ['admin','manager']
