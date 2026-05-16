@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from leaves.models import *
 from datetime import date
+from accounts.serializers import UserSerializer
+
 
 class LeaveTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,6 +18,8 @@ class LeaveTypeSerializer(serializers.ModelSerializer):
 
 
 class LeaveRequestSerializer(serializers.ModelSerializer):
+    leave_type_detail = LeaveTypeSerializer(source = 'leave_type', read_only = True)
+    reviewed_by_detail = UserSerializer(source = 'reviewed_by', read_only = True)
     def validate(self, data):
         today = date.today()
         if data['start_date'] < today:
@@ -33,7 +37,7 @@ class LeaveRequestSerializer(serializers.ModelSerializer):
         return data
     class Meta:
         model = LeaveRequest
-        fields = ['id','user','leave_type','start_date','end_date','reason','status','reviewed_by','created_at']
+        fields = ['id','user','leave_type','start_date','end_date','reason','status','reviewed_by','created_at', 'leave_type_detail','reviewed_by_detail']
         read_only_fields = ['user','status','reviewed_by','created_at']
 
 class LeaveRequestUpdateSerializer(serializers.ModelSerializer):
