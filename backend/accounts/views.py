@@ -9,7 +9,7 @@ from accounts.models import User
 # Create your views here.
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
-    permission_classes = [AllowAny] 
+    permission_classes = [IsAdmin] 
 
 class ProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = ProfileSerializer

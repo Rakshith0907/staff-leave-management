@@ -7,7 +7,7 @@ from departments.models import Department
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model= User
-        fields = ['username', 'email', 'password', 'role']
+        fields = ['username', 'email', 'password', 'role','department']
         extra_kwargs = {'password':{'write_only':True}}
     
     def create(self, validated_data):
@@ -15,7 +15,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             username= validated_data['username'],
             email = validated_data['email'],
             password = validated_data['password'],
-            role = validated_data['role']
+            role = validated_data['role'],
+            department = validated_data['department']
         )
         return user
 
