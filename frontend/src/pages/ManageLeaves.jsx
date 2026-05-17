@@ -1,51 +1,77 @@
-import React, { useEffect, useState } from 'react'
-import api from '../api/axios'
+import React, { useEffect, useState } from "react";
+import api from "../api/axios";
 
 const ManageLeaves = () => {
-  const [leaves,setLeaves] = useState([])
-  const [status, setStatus] = useState("")
-  const [loading, setLoading] = useState(true)
-  
+  const [leaves, setLeaves] = useState([]);
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(true);
+  const getStatusColor = (status) => {
+    if (status === "accepted") return "green";
+    if (status === "rejected") return "red";
+    return "orange";
+  };
+
   const getLeaves = async () => {
-    try{
-      const response = await api.get("leaves/leaverequest")
-      setLeaves(response.data)
-      setLoading(false)
+    try {
+      const response = await api.get("leaves/leaverequest");
+      setLeaves(response.data);
+      setLoading(false);
+    } catch (err) {
+      console.log(err.response.data);
     }
-    catch(err){
-      console.log(err.response.data)
-    }
-  }
+  };
 
-  useEffect(()=>{
-    getLeaves()
-  },[])
+  useEffect(() => {
+    getLeaves();
+  }, []);
 
-  if (loading) return (
-    <p>Loading......</p>
-  )
-
-  console.log(leaves)
+  if (loading) return <p>Loading......</p>;
 
   return (
-    <div className='manageLeaves-main'>
+    <div className="manageLeaves-main">
       <div className="manageLeaves-container">
-        <table className='table'>
-          <thead>
-
-          <tr>
-            <th>
-
-            </th>
-          </tr>
-          </thead>
-
-        </table>
+        {leaves.length === 0 ? (
+          <p>No leave requests found</p>
+        ) : (
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>LeaveType</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Action </th>
+              </tr>
+            </thead>
+            <tbody>
+              {leaves.map((e, i) => {
+                return (
+                  <tr key={e.id}>
+                    <td>{e.user_detail.username}</td>
+                    <td>{e.leave_type_detail.name}</td>
+                    <td>{e.start_date} </td>
+                    <td>{e.end_date} </td>
+                    <td>{e.reason} </td>
+                    <td style={{ color: getStatusColor(e.status) }}>
+                      {e.status}{" "}
+                    </td>
+                    {e.status === "pending" && (
+                      <td>
+                        <button className="btn btn-success">Accept</button>
+                        <button className="btn btn-danger">Reject</button>
+                      </td>
+                    )}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
-      
     </div>
-  )
-}
+  );
+};
 
-export default ManageLeaves
- 
+export default ManageLeaves;
