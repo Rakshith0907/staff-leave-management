@@ -9,6 +9,7 @@ import MyLeaves from './pages/MyLeaves'
 import ManageLeaves from './pages/ManageLeaves'
 import AdminPanel from './pages/AdminPanel'
 import Navbar from './components/Navbar'
+import Register from './pages/Register'
 
 const App = () => {
 
@@ -32,6 +33,7 @@ const App = () => {
             <Route path='my-leaves' element={<MyLeaves />} />
             <Route path='manage-leaves' element={<ManageLeaves />} />
             <Route path='admin' element={<AdminPanel />} />
+            <Route path='register' element={<Register />} />
           </Route>
         </Route>
         <Route path='*' element={<Navigate to='/login' /> }  />
