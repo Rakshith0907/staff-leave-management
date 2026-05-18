@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios";
+import { useAuth } from "../context/AuthContext";
 
 const ManageLeaves = () => {
   const [leaves, setLeaves] = useState([]);
@@ -10,6 +11,9 @@ const ManageLeaves = () => {
     if (status === "rejected") return "red";
     return "orange";
   };
+  const [comments,setComments] = useState({})
+
+  const { user } = useAuth()
 
   const getLeaves = async () => {
     try {
@@ -21,29 +25,31 @@ const ManageLeaves = () => {
     }
   };
 
-  const handleAccept = async (id) => {
+  const handleAccept = async (id,  comment) => {
     try{
-      const updateData = await api.patch(`leaves/leaverequest/${id}/` , {status: 'accepted'})
+      const updateData = await api.patch(`leaves/leaverequest/${id}/` , {status: 'accepted' , comment : comment})
       getLeaves()
     }
     catch(err){
       console.log(err)
     }
-  }
+  } 
 
-  const handleReject = async (id) => {
+  const handleReject = async (id, comment) => {
+    console.log({'id':id, 'comment': comment})
     try{
-      const updateData = await api.patch(`leaves/leaverequest/${id}/`, {status : 'rejected'})
+      const updateData = await api.patch(`leaves/leaverequest/${id}/`, {status : 'rejected' , comment: comment})
       getLeaves()
     }
     catch(err){
-      console.log(err)
+      console.log(err) 
     }
   }
 
   useEffect(() => {
     getLeaves();
   }, []);
+
 
   if (loading) return <p>Loading......</p>;
 
@@ -63,10 +69,13 @@ const ManageLeaves = () => {
                 <th>Reason</th>
                 <th>Status</th>
                 <th>Action </th>
+                {user.role === 'admin' && <th>Reviewed By</th>}
+                <th>Comments</th>
               </tr>
             </thead>
             <tbody>
               {leaves.map((e, i) => {
+                console.log(e)
                 return (
                   <tr key={e.id}>
                     <td>{e.user_detail.username}</td>
@@ -77,11 +86,17 @@ const ManageLeaves = () => {
                     <td style={{ textTransform  :'capitalize', color: getStatusColor(e.status) }}>
                       {e.status}{" "}
                     </td>
-                    {e.status === "pending" && (
+                    {(e.status === "pending" && (
                       <td>
-                        <button className="btn btn-success" onClick={()=>handleAccept(e.id)}>Accept</button>
-                        <button className="btn btn-danger" onClick={()=>handleReject(e.id)}>Reject</button>
-                      </td>
+                        <button className="btn btn-success" onClick={()=>handleAccept(e.id, comments[e.id])}>Accept</button>
+                        <button className="btn btn-danger" onClick={()=>handleReject(e.id, comments[e.id])}>Reject</button>
+                      </td>) || <td></td>
+                    )}
+                    {user.role ==='admin' && <td>{e.reviewed_by_detail?.username || 'Not Reviewed'}</td>}
+                    {e.status === 'pending' ? (
+                      <td><input type="text" placeholder="Leave a comment" value={comments[e.id] || ''} onChange={(ev) => setComments({...comments, [e.id]: ev.target.value})} /></td>
+                    ):(
+                      <td>{e.comment || "No Comments"}</td>
                     )}
                   </tr>
                 );
