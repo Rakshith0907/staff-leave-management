@@ -74,7 +74,7 @@ const ManageLeaves = () => {
                     <td>{e.start_date} </td>
                     <td>{e.end_date} </td>
                     <td>{e.reason} </td>
-                    <td style={{ textTransform:'capitalize', color: getStatusColor(e.status) }}>
+                    <td style={{ textTransform  :'capitalize', color: getStatusColor(e.status) }}>
                       {e.status}{" "}
                     </td>
                     {e.status === "pending" && (
