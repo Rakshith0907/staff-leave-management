@@ -21,6 +21,26 @@ const ManageLeaves = () => {
     }
   };
 
+  const handleAccept = async (id) => {
+    try{
+      const updateData = await api.patch(`leaves/leaverequest/${id}/` , {status: 'accepted'})
+      getLeaves()
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
+  const handleReject = async (id) => {
+    try{
+      const updateData = await api.patch(`leaves/leaverequest/${id}/`, {status : 'rejected'})
+      getLeaves()
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
   useEffect(() => {
     getLeaves();
   }, []);
@@ -54,13 +74,13 @@ const ManageLeaves = () => {
                     <td>{e.start_date} </td>
                     <td>{e.end_date} </td>
                     <td>{e.reason} </td>
-                    <td style={{ color: getStatusColor(e.status) }}>
+                    <td style={{ textTransform:'capitalize', color: getStatusColor(e.status) }}>
                       {e.status}{" "}
                     </td>
                     {e.status === "pending" && (
                       <td>
-                        <button className="btn btn-success">Accept</button>
-                        <button className="btn btn-danger">Reject</button>
+                        <button className="btn btn-success" onClick={()=>handleAccept(e.id)}>Accept</button>
+                        <button className="btn btn-danger" onClick={()=>handleReject(e.id)}>Reject</button>
                       </td>
                     )}
                   </tr>

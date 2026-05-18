@@ -5,8 +5,8 @@ import api from '../api/axios'
 
 const ApplyLeave = () => {
   const [loading, setLoading] = useState(true)
-  const [sd, setSd] = useState()
-  const [ed,setEd] = useState()
+  const [sd, setSd] = useState("")
+  const [ed,setEd] = useState("")
   const [lt,setLt] = useState("")
   const [reason,setReason] = useState("")
 
