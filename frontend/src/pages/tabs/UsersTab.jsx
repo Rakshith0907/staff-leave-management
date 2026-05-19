@@ -36,7 +36,7 @@ const UsersTab = () => {
             <div key={deptName} className="user-group">
               <h3>{deptName}</h3>
               {users.map((user) => {
-                console.log(user)
+                // console.log(user) 
                 return (
                   <div key={user.id} className="user-card">
                     <FaUserCircle />
