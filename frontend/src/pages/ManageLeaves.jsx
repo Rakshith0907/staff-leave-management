@@ -75,7 +75,6 @@ const ManageLeaves = () => {
             </thead>
             <tbody>
               {leaves.map((e, i) => {
-                console.log(e)
                 return (
                   <tr key={e.id}>
                     <td>{e.user_detail.username}</td>
