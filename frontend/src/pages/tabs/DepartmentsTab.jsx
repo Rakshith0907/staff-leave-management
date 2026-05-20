@@ -1,38 +1,85 @@
-import React, { useEffect, useState } from 'react'
-import api from '../../api/axios'
+import React, { useEffect, useState } from "react";
+import api from "../../api/axios";
 
 const DepartmentsTab = () => {
-  const [dept, setDept] = useState([])
+  const [dept, setDept] = useState([]);
 
   const getDepartments = async () => {
+    try {
+      const response = await api.get("departments/");
+      setDept(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getDepartments();
+  }, []);
+
+  const [deptName, setDeptName] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const handleAdd = async () => {
     try{
-      const response = await api.get("departments/")
-      setDept(response.data)
+      const send = await api.post("departments/", { name: deptName });
+    }
+    catch(err){
+      console.log(err)
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try{
+      const del = await api.delete(`departments/${id}/`)
     }
     catch(err){
       console.log(err)
     }
   }
 
-  useEffect(()=>{
-    getDepartments()
-  },[])
-
-  console.log(dept)
-
-
   return (
-    <div className='dept-main'>
+    <div className="dept-main">
       <div className="dept-container">
-        {dept.map((e)=>{
-          return(
-            <h3>{e.name}</h3>
-          )
-        })}
-      </div>
-      
-    </div>
-  )
-}
+        <div className="dept-top">
+          <p>Add new department</p>
+          <button
+            onClick={() => setShowModal(true)}
+            className="btn btn-primary"
+          >
+            Add
+          </button>
+        </div>
 
-export default DepartmentsTab
+        <div className="dept-cards">
+          {dept.map((e) => {
+            return (
+              <div key={e.id} className="dept-card">
+                <h3>{e.name}</h3>
+                <button onClick={()=> handleDelete(e.id)} className="btn btn-danger">Delete</button>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <h3>Add Department</h3>
+            <input
+              type="text"
+              placeholder="Department name"
+              value={deptName}
+              onChange={(e) => setDeptName(e.target.value)}
+            />
+            <button onClick={handleAdd}>Submit</button>
+            <button onClick={() => setShowModal(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default DepartmentsTab;
