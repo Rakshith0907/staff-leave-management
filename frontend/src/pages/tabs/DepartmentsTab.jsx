@@ -23,6 +23,9 @@ const DepartmentsTab = () => {
   const handleAdd = async () => {
     try{
       const send = await api.post("departments/", { name: deptName });
+      getDepartments()
+      setDeptName("")
+      setShowModal(false)
     }
     catch(err){
       console.log(err)
@@ -32,6 +35,7 @@ const DepartmentsTab = () => {
   const handleDelete = async (id) => {
     try{
       const del = await api.delete(`departments/${id}/`)
+      getDepartments()
     }
     catch(err){
       console.log(err)
@@ -65,7 +69,7 @@ const DepartmentsTab = () => {
 
       {showModal && (
         <div className="modal-overlay">
-          <div className="modal-box">
+          <div className="modal-box" >
             <h3>Add Department</h3>
             <input
               type="text"
@@ -78,7 +82,32 @@ const DepartmentsTab = () => {
           </div>
         </div>
       )}
+      <style>{`
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            .modal-box {
+                background: white;
+                padding: 30px;
+                border-radius: 8px;
+                width: 400px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+        `}</style>
     </div>
+    
   );
 };
 
