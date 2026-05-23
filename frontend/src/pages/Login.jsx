@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import api from '../api/axios'
+import "../styles/Login.css"
+import { MdWavingHand } from "react-icons/md";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -30,7 +32,11 @@ const Login = () => {
   return (
     <div className="login-main">
       <div className="login-container">
+        <div className="login-head">
+          <h3>Staff Leave Management</h3>
+        </div>
         <div className="login-box">
+          <h5>Welcome back!!! <MdWavingHand /> </h5>
           <form method="POST" onSubmit={handleSubmit}>
             {error && <p style={{ color: "red" }}> {error} </p>}
             <div className="mb-3">

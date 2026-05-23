@@ -1,0 +1,35 @@
+.login-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background);
+    height: 100vh;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    align-items: center;
+}
+
+.login-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.login-box {
+    display: flex;
+    width: 30%;
+    min-height: 400px;
+    height: auto;
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+    border-radius: 20px;
+    background-color: var(--white);
+    box-shadow: 2px 2px 8px var(--subtext);
+}
