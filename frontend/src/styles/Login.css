@@ -21,15 +21,98 @@
     margin-bottom: 20px;
 }
 
+.login-head h1 {
+    color: var(--primary);
+    font-size: 32px;
+    font-weight: 700;
+}
+
 .login-box {
     display: flex;
-    width: 30%;
     min-height: 400px;
     height: auto;
+    min-width: 300px;
+    width: auto;
     flex-direction: column;
     padding: 30px;
     gap: 20px;
     border-radius: 20px;
     background-color: var(--white);
     box-shadow: 2px 2px 8px var(--subtext);
+}
+
+.login-box h2 {
+    color: var(--primary);
+    font-size: 24px;
+}
+
+.login-box label {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.login-box button:hover {
+    background-color: var(--secondary);
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.login-box input:focus {
+    border-color: var(--secondary);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .login-box {
+        width: 60%;
+    }
+
+    .login-head h1 {
+        font-size: 26px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .login-main{
+        max-height: 100vh;
+    }
+
+    .login-box {
+        width: 90%;
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .login-head h1 {
+        font-size: 22px;
+    }
+
+    .login-box h2 {
+        font-size: 20px;
+    }
+
+    .login-box button {
+        font-size: 14px;
+    }
 }

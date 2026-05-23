@@ -14,24 +14,24 @@ const Navbar = () => {
 
   return (
     <div className="nav-main">
-      <div className="nac-container">
+      <div className="nav-container">
         <Link to="/">Dashboard</Link>
         {user.role === "employee" && (
           <>
-            <Link to="apply">ApplyLeave</Link>
-            <Link to="my-leaves">My Leaves</Link>
+            <Link className="nav-ele" to="apply">ApplyLeave</Link>
+            <Link className="nav-ele" to="my-leaves">My Leaves</Link>
           </>
         )}
         {user.role === 'manager' && (
           <>
-            <Link to='manage-leaves' >Manage Leaves</Link>
+            <Link className="nav-ele" to='manage-leaves' >Manage Leaves</Link>
           </>
         )}
         {user.role === 'admin' && (
           <>
-            <Link to='admin' >Admin Panel</Link>
-            <Link to='manage-leaves'>Manage Leaves</Link>
-            <Link to='register'>Register New User</Link>
+            <Link className="nav-ele" to='admin' >Admin Panel</Link>
+            <Link className="nav-ele" to='manage-leaves'>Manage Leaves</Link>
+            <Link className="nav-ele" to='register'>Register New User</Link>
           </>
         )}
         <button className="btn btn-danger" onClick={handleLogout}>Logout</button>

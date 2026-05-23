@@ -33,10 +33,10 @@ const Login = () => {
     <div className="login-main">
       <div className="login-container">
         <div className="login-head">
-          <h3>Staff Leave Management</h3>
+          <h1>Staff Leave Management</h1>
         </div>
         <div className="login-box">
-          <h5>Welcome back!!! <MdWavingHand /> </h5>
+          <h2>Welcome back!!! <MdWavingHand /> </h2>
           <form method="POST" onSubmit={handleSubmit}>
             {error && <p style={{ color: "red" }}> {error} </p>}
             <div className="mb-3">
