@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import api from "../api/axios";
+import "../styles/MyLeaves.css"
 
 const MyLeaves = () => {
   const { user } = useAuth();
@@ -31,6 +32,7 @@ const MyLeaves = () => {
   return (
     <div className="leaves-main">
       <div className="leaves-container">
+        <h2>My Leave Applications</h2>
         {leaves.length === 0 ? (
           <p>No leave applications found</p>
         ) : (

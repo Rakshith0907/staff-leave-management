@@ -38,7 +38,6 @@ const Login = () => {
         <div className="login-box">
           <h2>Welcome back!!! <MdWavingHand /> </h2>
           <form method="POST" onSubmit={handleSubmit}>
-            {error && <p style={{ color: "red" }}> {error} </p>}
             <div className="mb-3">
               <label className="form-label">Username</label>
               <input
@@ -58,8 +57,9 @@ const Login = () => {
               />
             </div>
             <button type="submit" className="btn btn-primary">
-              Submit
+              Login
             </button>
+            {error && <p style={{ color: "red" }}> {error} </p>}
           </form>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from "../context/AuthContext";
 import api from '../api/axios'
+import "../styles/ApplyLeave.css"
 
 
 const ApplyLeave = () => {
@@ -56,6 +57,7 @@ const ApplyLeave = () => {
   return (
     <div className='apply-main'>
       <div className="apply-container">
+        <h2>Apply for Leave</h2>
         <form method='POST' onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Start Date</label>
