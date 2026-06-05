@@ -1,0 +1,77 @@
+.admin-main {
+    background-color: var(--background);
+    min-height: calc(100vh - 60px);
+    padding: 40px 20px;
+}
+
+.admin-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.admin-btns {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.admin-btns button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.admin-btns .btn-secondary {
+    background-color: var(--white);
+    color: var(--subtext);
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.08);
+}
+
+.admin-btns .btn-secondary:hover {
+    background-color: var(--accent);
+    color: var(--primary);
+}
+
+.admin-btns .btn-success {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+}
+
+.admin-body {
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.08);
+    padding: 30px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .admin-btns {
+        flex-wrap: wrap;
+    }
+
+    .admin-btns button {
+        flex: 1;
+        padding: 8px 12px;
+    }
+
+    .admin-body {
+        padding: 20px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .admin-main {
+        padding: 20px 10px;
+    }
+
+    .admin-btns button {
+        font-size: 13px;
+    }
+}

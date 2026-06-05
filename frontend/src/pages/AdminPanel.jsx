@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import UsersTab from './tabs/UsersTab'
 import DepartmentsTab from './tabs/DepartmentsTab'
 import ManageLeaves from './ManageLeaves'
+import "../styles/AdminPanel.css"
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState('users')

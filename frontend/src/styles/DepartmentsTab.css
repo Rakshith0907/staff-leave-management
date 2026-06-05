@@ -1,0 +1,176 @@
+.dept-main {
+    width: 100%;
+}
+
+.dept-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dept-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--accent);
+    padding: 16px 20px;
+    border-radius: 10px;
+}
+
+.dept-top p {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0;
+}
+
+.dept-top button {
+    padding: 8px 20px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.dept-top button:hover {
+    background-color: var(--secondary);
+}
+
+.dept-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.dept-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--white);
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 16px 20px;
+    width: 280px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dept-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 2px 4px 12px rgba(0,0,0,0.1);
+}
+
+.dept-card h3 {
+    color: var(--primary);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+    text-transform: capitalize;
+}
+
+.dept-card button {
+    padding: 6px 14px;
+    background-color: var(--danger);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.2s;
+}
+
+.dept-card button:hover {
+    background-color: #c82333;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.modal-box h3 {
+    color: var(--primary);
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.modal-box input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+}
+
+.modal-box input:focus {
+    border-color: var(--secondary);
+}
+
+.modal-box button:first-of-type {
+    padding: 10px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.modal-box button:first-of-type:hover {
+    background-color: var(--secondary);
+}
+
+.modal-box button:last-of-type {
+    padding: 10px;
+    background-color: var(--white);
+    color: var(--subtext);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.modal-box button:last-of-type:hover {
+    background-color: var(--background);
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .modal-box {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .dept-card {
+        width: 100%;
+    }
+}

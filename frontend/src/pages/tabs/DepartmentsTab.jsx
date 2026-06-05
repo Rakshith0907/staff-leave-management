@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
+import "../../styles/DepartmentsTab.css"
 
 const DepartmentsTab = () => {
   const [dept, setDept] = useState([]);
@@ -82,30 +83,6 @@ const DepartmentsTab = () => {
           </div>
         </div>
       )}
-      <style>{`
-            .modal-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.5);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 1000;
-            }
-
-            .modal-box {
-                background: white;
-                padding: 30px;
-                border-radius: 8px;
-                width: 400px;
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
-        `}</style>
     </div>
     
   );

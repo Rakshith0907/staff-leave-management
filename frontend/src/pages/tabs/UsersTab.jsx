@@ -1,6 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import api from "../../api/axios";
 import { FaUserCircle } from "react-icons/fa";
+import "../../styles/UsersTab.css"
 
 const UsersTab = () => {
   const [users, setUsers] = useState([]);
@@ -35,6 +36,7 @@ const UsersTab = () => {
           return (
             <div key={deptName} className="user-group">
               <h3>{deptName}</h3>
+              <div className="user-cards">
               {users.map((user) => {
                 // console.log(user) 
                 return (
@@ -46,6 +48,7 @@ const UsersTab = () => {
                   </div>
                 );
               })}
+              </div>
             </div>
           );
         })}
