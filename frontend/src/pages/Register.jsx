@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios";
+import "../styles/Register.css"
 
 const Register = () => {
   const [un, setUn] = useState("");
@@ -56,6 +57,7 @@ const Register = () => {
   return (
     <div className="reg-main">
       <div className="reg-container">
+        <h2>Register New User</h2>
         <form className="form" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Username</label>
