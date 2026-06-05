@@ -32,7 +32,7 @@
     border-collapse: collapse;
 }
 
-.leaves-container thead {
+.leaves-container thead th {
     background-color: var(--primary);
 }
 
@@ -47,6 +47,14 @@
 .leaves-container tbody tr {
     border-bottom: 1px solid #eee;
     transition: background-color 0.2s;
+}
+
+.leaves-container tbody td {
+    width: 150px;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .leaves-container tbody tr:hover {

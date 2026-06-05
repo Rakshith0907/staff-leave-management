@@ -81,6 +81,11 @@
     transition: background-color 0.2s;
 }
 
+.manageLeaves-container .btn-none{
+    display: none;
+}
+
+
 .manageLeaves-container .btn-success:hover {
     background-color: #218838;
 }
@@ -98,6 +103,14 @@
 
 .manageLeaves-container .btn-danger:hover {
     background-color: #c82333;
+}
+
+.manageLeaves-container tbody td {
+    width: 150px;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .manageLeaves-container input[type="text"] {

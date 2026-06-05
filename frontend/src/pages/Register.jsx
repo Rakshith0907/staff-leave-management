@@ -10,9 +10,10 @@ const Register = () => {
   const [role, setRole] = useState();
   const [dept, setDept] = useState();
   const [loading, setLoading] = useState(true);
-  const [mess,setMess] = useState("")
-
+  const [mess,setMess] = useState("");
   const [depts, setDepts] = useState([]);
+  const [subLoading, setSubLoading] = useState(false)
+
 
   const getDepts = async () => {
     try {
@@ -30,6 +31,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubLoading(true)
     if (pw !== cp){
         setMess("passwords do not match")
         return;
@@ -47,10 +49,13 @@ const Register = () => {
       setUn('')
       setPw('')
       setCp('')
+      setEm('')
       setRole('')
       setDept('')
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+    }finally {
+      setSubLoading(false)
     }
   };
 
@@ -140,7 +145,7 @@ const Register = () => {
             </select>
           </div>
           {mess && <p style={{color:'red'}}>{mess}</p> }
-          <button className="btn btn-primary">Submit</button>
+          <button className={subLoading ? 'btn btn-secondary' : "btn btn-primary"}>{subLoading ? 'Submitting...' : 'Submit'}</button>
         </form>
       </div>
     </div>

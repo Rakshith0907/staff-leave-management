@@ -52,7 +52,7 @@
     font-size: 14px;
 }
 
-.login-box button {
+.login-box .btn-primary {
     width: 100%;
     padding: 10px;
     background-color: var(--primary);
@@ -64,7 +64,17 @@
     margin: 10px 0px;
 }
 
-.login-box button:hover {
+.login-box .btn-secondary{
+    background-color: gray;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 10px 0px;
+}
+
+.login-box .btn-primary:hover {
     background-color: var(--secondary);
 }
 

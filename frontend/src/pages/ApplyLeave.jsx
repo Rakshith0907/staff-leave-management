@@ -10,9 +10,8 @@ const ApplyLeave = () => {
   const [ed,setEd] = useState("")
   const [lt,setLt] = useState("")
   const [reason,setReason] = useState("")
-
-
-  const[leaveTypes,setLeaveTypes] = useState({})
+  const [leaveTypes,setLeaveTypes] = useState({})
+  const [subLoading,setSubLoading] = useState(false)
 
   const getLeaveType = async () => {
     try{
@@ -20,7 +19,7 @@ const ApplyLeave = () => {
       setLeaveTypes(response.data)
     }
     catch(err){
-      console.log(err)
+      // console.log(err)
     }
     finally{
       setLoading(false)
@@ -34,6 +33,7 @@ const ApplyLeave = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setSubLoading(true)
     try{
       const sendLeave = await api.post("leaves/leaverequest/", {
         start_date : sd,
@@ -42,10 +42,17 @@ const ApplyLeave = () => {
         reason : reason,
       })
       alert("Leave applied succesfully")
+      setSd("")
+      setEd("")
+      setLt("")
+      setReason("")
     }
     catch(err){
       // console.log(err.response.data)
       alert((err.response.data?.non_field_errors))
+    }
+    finally{
+      setSubLoading(false)
     }
   }
   
@@ -96,7 +103,8 @@ const ApplyLeave = () => {
                 onChange={(e)=> setReason(e.target.value)}
               />
             </div>
-            <button className='btn btn-primary'>Submit</button>
+            <button className='btn btn-primary'>
+              {subLoading ? 'Submitting...' : 'Submit'}</button>
         </form>
       </div>
       

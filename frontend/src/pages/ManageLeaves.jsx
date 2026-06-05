@@ -7,6 +7,7 @@ const ManageLeaves = () => {
   const [leaves, setLeaves] = useState([]);
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(true);
+  const [accRej, setAccRej] = useState(false)
   const getStatusColor = (status) => {
     if (status === "accepted") return "green";
     if (status === "rejected") return "red";
@@ -27,23 +28,29 @@ const ManageLeaves = () => {
   };
 
   const handleAccept = async (id,  comment) => {
+    setAccRej(true)
     try{
       const updateData = await api.patch(`leaves/leaverequest/${id}/` , {status: 'accepted' , comment : comment})
       getLeaves()
     }
     catch(err){
-      console.log(err)
+      // console.log(err)
+    } finally {
+      setAccRej(false)
     }
   } 
 
   const handleReject = async (id, comment) => {
-    console.log({'id':id, 'comment': comment})
+    setAccRej(true)
+    // console.log({'id':id, 'comment': comment})
     try{
       const updateData = await api.patch(`leaves/leaverequest/${id}/`, {status : 'rejected' , comment: comment})
       getLeaves()
     }
     catch(err){
-      console.log(err) 
+      // console.log(err) 
+    } finally {
+      setAccRej(false)
     }
   }
 
@@ -89,8 +96,8 @@ const ManageLeaves = () => {
                     </td>
                     {(e.status === "pending" && (
                       <td>
-                        <button className="btn btn-success" onClick={()=>handleAccept(e.id, comments[e.id])}>Accept</button>
-                        <button className="btn btn-danger" onClick={()=>handleReject(e.id, comments[e.id])}>Reject</button>
+                        <button className={accRej ? 'btn btn-none' : 'btn btn-success'} onClick={()=>handleAccept(e.id, comments[e.id])}>{accRej ? '': 'Accept'}</button>
+                        <button className={accRej ? 'btn btn-none' : "btn btn-danger"} onClick={()=>handleReject(e.id, comments[e.id])}>{accRej ? '' : 'Reject'}</button>
                       </td>) || <td></td>
                     )}
                     {user.role ==='admin' && <td>{e.reviewed_by_detail?.username || 'Not Reviewed'}</td>}
