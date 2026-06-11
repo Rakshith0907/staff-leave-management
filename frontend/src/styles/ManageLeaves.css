@@ -32,6 +32,8 @@
 .manageLeaves-container table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
 }
 
 .manageLeaves-container thead {
@@ -67,7 +69,17 @@
     padding: 12px 16px;
     font-size: 14px;
     color: var(--text);
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
+
+/* .manageLeaves-container tbody td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
+} */
 
 .manageLeaves-container .btn-success {
     background-color: var(--success);
@@ -105,13 +117,13 @@
     background-color: #c82333;
 }
 
-.manageLeaves-container tbody td {
+/* .manageLeaves-container tbody td {
     width: 150px;
     max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
+} */
 
 .manageLeaves-container input[type="text"] {
     padding: 6px 10px;

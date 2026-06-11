@@ -39,8 +39,8 @@ const Login = () => {
         } else if (err.response?.status === 500) {
           setError('Server error, please try again later')
         } else if (!err.response) {
-          // setError('Network error, please check your connection')
-          console.log(err)
+          setError('Network error, please check your connection')
+          // console.log(err)
         } else {
           setError('Something went wrong, please try again')
         }

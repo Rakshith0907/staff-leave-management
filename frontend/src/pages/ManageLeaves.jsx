@@ -69,6 +69,17 @@ const ManageLeaves = () => {
           <p>No leave requests found</p>
         ) : (
           <table className="table">
+            <colgroup>
+              <col style={{width: '10%'}} /> {/* Name */}
+              <col style={{width: '9%'}} /> {/* Leave Type */}
+              <col style={{width: '9%'}} /> {/* Start Date */}
+              <col style={{width: '9%'}} /> {/* End Date */}
+              <col style={{width: '18%'}} /> {/* Reason */}
+              <col style={{width: '8%'}} />  {/* Status */}
+              <col style={{width: '10%'}} /> {/* Action */}
+              {user.role === 'admin' && <col style={{width: '10%'}} />} {/* Reviewed By */}
+              <col style={{width: '17%'}} /> {/* Comments */}
+            </colgroup>
             <thead>
               <tr>
                 <th>Name</th>

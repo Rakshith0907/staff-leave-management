@@ -37,6 +37,15 @@ const MyLeaves = () => {
           <p>No leave applications found</p>
         ) : (
           <table className="table">
+            <colgroup>
+              <col style={{width: '15%'}} /> {/* Leave Type */}
+              <col style={{width: '20%'}} /> {/* Reason */}
+              <col style={{width: '12%'}} /> {/* Start Date */}
+              <col style={{width: '12%'}} /> {/* End Date */}
+              <col style={{width: '10%'}} /> {/* Status */}
+              <col style={{width: '11%'}} /> {/* Reviewed By */}
+              <col style={{width: '20%'}} /> {/* Comments */}
+            </colgroup>
             <thead>
               <tr>
                 <th>Leave Type</th>
@@ -45,6 +54,7 @@ const MyLeaves = () => {
                 <th>End Date</th>
                 <th>Status</th>
                 <th>Reviewed By</th>
+                <th>Comments</th>
               </tr>
             </thead>
             <tbody>
@@ -59,6 +69,7 @@ const MyLeaves = () => {
                       {e.status}
                     </td>
                     <td>{e.reviewed_by_detail?.username}</td>
+                    <td>{e.comment || ""}</td>
                   </tr>
                 );
               })}
