@@ -10,7 +10,13 @@ const DepartmentsTab = () => {
       const response = await api.get("departments/");
       setDept(response.data);
     } catch (err) {
-      console.log(err);
+      if (err.response?.status === 401) {
+        toast.error('Session expired, please login again')
+      } else if (!err.response) {
+          toast.error('Network error, please check your connection')
+      } else {
+          toast.error('Failed to load Departments, please refresh the page')
+      }
     }
   };
 
@@ -20,8 +26,11 @@ const DepartmentsTab = () => {
 
   const [deptName, setDeptName] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false)
 
-  const handleAdd = async () => {
+  const handleAdd = async (e) => {
+    e.preventDefault()
+    setLoading(true)
     try{
       const send = await api.post("departments/", { name: deptName });
       getDepartments()
@@ -29,7 +38,20 @@ const DepartmentsTab = () => {
       setShowModal(false)
     }
     catch(err){
-      console.log(err)
+      if (err.response?.status === 400) {
+        toast.error('Department name already exists or is invalid')
+      } else if (err.response?.status === 403) {
+        toast.error('You do not have permission to create departments')
+      } else if (err.response?.status === 401) {
+        toast.error('Session expired, please login again')
+      } else if (!err.response) {
+        toast.error('Network error, please check your connection')
+      } else {
+        toast.error('Something went wrong, please try again')
+      }
+    }
+    finally{
+      setLoading(false)
     }
   };
 

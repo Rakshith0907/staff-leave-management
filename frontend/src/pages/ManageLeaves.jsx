@@ -6,7 +6,7 @@ import "../styles/ManageLeaves.css"
 const ManageLeaves = () => {
   const [leaves, setLeaves] = useState([]);
   const [status, setStatus] = useState("");
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [accRej, setAccRej] = useState(false)
   const getStatusColor = (status) => {
     if (status === "accepted") return "green";
@@ -21,9 +21,16 @@ const ManageLeaves = () => {
     try {
       const response = await api.get("leaves/leaverequest");
       setLeaves(response.data);
-      setLoading(false);
+      // setLoading(false);
     } catch (err) {
-      console.log(err.response.data);
+      // console.log(err.response.data);
+      if (err.response?.status === 401) {
+        toast.error('Session expired, please login again')
+      } else if (!err.response) {
+          toast.error('Network error, please check your connection')
+      } else {
+          toast.error('Failed to load leave requests, please refresh the page')
+      }
     }
   };
 
@@ -35,6 +42,15 @@ const ManageLeaves = () => {
     }
     catch(err){
       // console.log(err)
+      if (err.response?.status === 401) {
+        toast.error('Session expired, please login again')
+      } else if (err.response?.status === 403) {
+          toast.error('You do not have permission to approve leaves')
+      } else if (!err.response) {
+          toast.error('Network error, please check your connection')
+      } else {
+          toast.error('Failed to accept leave, please try again')
+      }
     } finally {
       setAccRej(false)
     }
@@ -49,6 +65,15 @@ const ManageLeaves = () => {
     }
     catch(err){
       // console.log(err) 
+      if (err.response?.status === 401) {
+        toast.error('Session expired, please login again')
+      } else if (err.response?.status === 403) {
+          toast.error('You do not have permission to reject leaves')
+      } else if (!err.response) {
+          toast.error('Network error, please check your connection')
+      } else {
+          toast.error('Failed to reject leave, please try again')
+      }
     } finally {
       setAccRej(false)
     }
@@ -59,7 +84,7 @@ const ManageLeaves = () => {
   }, []);
 
 
-  if (loading) return <p>Loading......</p>;
+  // if (loading) return <p>Loading......</p>;
 
   return (
     <div className="manageLeaves-main">
@@ -70,15 +95,15 @@ const ManageLeaves = () => {
         ) : (
           <table className="table">
             <colgroup>
-              <col style={{width: '10%'}} /> {/* Name */}
-              <col style={{width: '9%'}} /> {/* Leave Type */}
-              <col style={{width: '9%'}} /> {/* Start Date */}
-              <col style={{width: '9%'}} /> {/* End Date */}
-              <col style={{width: '18%'}} /> {/* Reason */}
-              <col style={{width: '8%'}} />  {/* Status */}
-              <col style={{width: '10%'}} /> {/* Action */}
-              {user.role === 'admin' && <col style={{width: '10%'}} />} {/* Reviewed By */}
-              <col style={{width: '17%'}} /> {/* Comments */}
+              <col style={{width: '10%'}} /> 
+              <col style={{width: '9%'}} />
+              <col style={{width: '9%'}} />
+              <col style={{width: '9%'}} /> 
+              <col style={{width: '18%'}} />
+              <col style={{width: '8%'}} /> 
+              <col style={{width: '10%'}} /> 
+              {user.role === 'admin' && <col style={{width: '10%'}} />} 
+              <col style={{width: '17%'}} /> 
             </colgroup>
             <thead>
               <tr>
@@ -88,7 +113,7 @@ const ManageLeaves = () => {
                 <th>EndDate</th>
                 <th>Reason</th>
                 <th>Status</th>
-                <th>Action </th>
+                <th>Action</th>
                 {user.role === 'admin' && <th>Reviewed By</th>}
                 <th>Comments</th>
               </tr>
@@ -99,21 +124,21 @@ const ManageLeaves = () => {
                   <tr key={e.id}>
                     <td>{e.user_detail.username}</td>
                     <td>{e.leave_type_detail.name}</td>
-                    <td>{e.start_date} </td>
-                    <td>{e.end_date} </td>
-                    <td>{e.reason} </td>
+                    <td>{e.start_date}</td>
+                    <td>{e.end_date}</td>
+                    <td>{e.reason}</td>
                     <td style={{ textTransform  :'capitalize', color: getStatusColor(e.status) }}>
                       {e.status}{" "}
                     </td>
                     {(e.status === "pending" && (
-                      <td>
+                      <td className="actions">
                         <button className={accRej ? 'btn btn-none' : 'btn btn-success'} onClick={()=>handleAccept(e.id, comments[e.id])}>{accRej ? '': 'Accept'}</button>
                         <button className={accRej ? 'btn btn-none' : "btn btn-danger"} onClick={()=>handleReject(e.id, comments[e.id])}>{accRej ? '' : 'Reject'}</button>
                       </td>) || <td></td>
                     )}
                     {user.role ==='admin' && <td>{e.reviewed_by_detail?.username || 'Not Reviewed'}</td>}
                     {e.status === 'pending' ? (
-                      <td><input type="text" placeholder="Leave a comment" value={comments[e.id] || ''} onChange={(ev) => setComments({...comments, [e.id]: ev.target.value})} /></td>
+                      <td><textarea type="text" placeholder="Leave a comment" value={comments[e.id] || ''} onChange={(ev) => setComments({...comments, [e.id]: ev.target.value})} /></td>
                     ):(
                       <td>{e.comment || "No Comments"}</td>
                     )}

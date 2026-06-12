@@ -97,6 +97,16 @@
     display: none;
 }
 
+.actions{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.actions button{
+    width: 100%;
+}
+
 
 .manageLeaves-container .btn-success:hover {
     background-color: #218838;
@@ -125,7 +135,7 @@
     white-space: nowrap;
 } */
 
-.manageLeaves-container input[type="text"] {
+.manageLeaves-container textarea[type="text"] {
     padding: 6px 10px;
     border: 1px solid #ddd;
     border-radius: 6px;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 import "../styles/Register.css"
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [un, setUn] = useState("");
@@ -45,7 +46,7 @@ const Register = () => {
         role: role,
         department: dept,
       });
-      alert("User created");
+      toast.success("User created");
       setUn('')
       setPw('')
       setCp('')

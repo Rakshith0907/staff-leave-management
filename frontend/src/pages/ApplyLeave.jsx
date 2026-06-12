@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from "../context/AuthContext";
 import api from '../api/axios'
 import "../styles/ApplyLeave.css"
+import { toast } from 'react-toastify';
 
 
 const ApplyLeave = () => {
@@ -19,7 +20,14 @@ const ApplyLeave = () => {
       setLeaveTypes(response.data)
     }
     catch(err){
-      // console.log(err)
+      // console.log(err)'
+      if (err.response?.status === 401) {
+        toast.error('Session expired, please login again')
+      } else if (!err.response) {
+          toast.error('Network error, please check your connection')
+      } else {
+          toast.error('Failed to load leave types, please refresh the page')
+      }
     }
     finally{
       setLoading(false)
@@ -41,7 +49,8 @@ const ApplyLeave = () => {
         leave_type : lt,
         reason : reason,
       })
-      alert("Leave applied succesfully")
+      // alert("Leave applied succesfully")
+      toast.success("Leave appliead succesfully")
       setSd("")
       setEd("")
       setLt("")
@@ -49,7 +58,19 @@ const ApplyLeave = () => {
     }
     catch(err){
       // console.log(err.response.data)
-      alert((err.response.data?.non_field_errors))
+      if (err.response?.status === 400) {
+        const errors = err.response.data
+        const firstError = Object.values(errors)[0]
+        toast.error(Array.isArray(firstError) ? firstError[0] : firstError)
+      } else if (err.response?.status === 403) {
+          toast.error('You do not have permission to apply for leave')
+      } else if (err.response?.status === 401) {
+          toast.error('Session expired, please login again')
+      } else if (!err.response) {
+          toast.error('Network error, please check your connection')
+      } else {
+          toast.error('Something went wrong, please try again')
+      }
     }
     finally{
       setSubLoading(false)

@@ -7,8 +7,18 @@ const UsersTab = () => {
   const [users, setUsers] = useState([]);
 
   const getUsers = async () => {
-    const responseData = await api.get("auth/users/");
-    setUsers(responseData.data);
+    try{
+      const responseData = await api.get("auth/users/");
+      setUsers(responseData.data);
+    } catch(err){
+      if (err.response?.status === 401) {
+        toast.error('Session expired, please login again')
+      } else if (!err.response) {
+          toast.error('Network error, please check your connection')
+      } else {
+          toast.error('Failed to load Users data, please refresh the page')
+      }
+    }
   };
 
   useEffect(() => {
